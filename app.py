@@ -5,7 +5,7 @@ import requests
 import streamlit as st
 from datetime import datetime
 
-set.set_page_config(page_title="vLLM Nexux", page_icon="⚡", layout="wide")
+st.set_page_config(page_title="vLLM Nexux", page_icon="⚡", layout="wide")
 
 VLLM_HOST = os.getenv("VLLM_HOST", "http://localhost:8000")
 
@@ -58,7 +58,7 @@ def check_health():
         r = requests.get(f"{VLLM_HOST}/health", timeout = 2)
         return "online" if r.status_code == 200 else "offline"
     except Exception as e:
-        return "offline: {e}"
+        return f"offline: {e}"
 
 def fetch_models():
     try:
@@ -94,7 +94,7 @@ def parse_stream(response):
                 continue
 
 with st.sidebar:
-    st.markdown('<div class="logo"><div class="logo-title">⚡ vLLM NEXUS</div><div class=logo-sub">INFERENCE TERMINAL</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="logo"><div class="logo-title">⚡ vLLM NEXUS</div><div class="logo-sub">INFERENCE TERMINAL</div></div>', unsafe_allow_html=True)
 
     status = check_health()
     models = fetch_models()

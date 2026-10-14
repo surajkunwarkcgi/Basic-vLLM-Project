@@ -1,8 +1,8 @@
 FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04
 
-ENV DEBIAN_FRONTEND = noninteractive
-ENV PYTHONUNBUFFERED = 1
-ENV HF_HUB_DISABLE_XET = 1
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+ENV HF_HUB_DISABLE_XET=1
 
 RUN apt-get update && apt-get install -y \
     python3 python3-pip curl && \
@@ -10,11 +10,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY requiremets.txt .
+COPY requirements.txt .
 
-RUN pip install --index-url https://download.pytorch.org/whl/cu121 torch==2.4.0+cu121 torchvision==0.19.0+cu121 && \
-    pip install -r requirements.txt
-
+# RUN pip install --index-url https://download.pytorch.org/whl/cu121 torch==2.4.0+cu121 torchvision==0.19.0+cu121 && \
+#     pip install -r requirements.txt
+RUN pip install -r requirements.txt
+    
 COPY app.py .
 
 COPY entrypoint.sh . 
